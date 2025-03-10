@@ -82,7 +82,7 @@
         </div>
         <div>
           <div style="width: 100%; max-width: 400px; margin: auto;">
-            <label for="hiring">Dias de Cargo</label>
+            <label for="hiring">Días de Cargo</label>
             <ng-select [items]="daysPay" bindLabel="day" placeholder="Seleccione el día de cargo"
               [(ngModel)]="dayPaySelected" [multiple]="false" name="daysPay" class="custom-ng-select" [clearable]="true"
               [searchable]="true" dropdownPosition="auto">
@@ -92,6 +92,7 @@
                 </div>
               </ng-template>
             </ng-select>
+            <small><i>Los días de cargo son los días del mes que se le hará el cargo</i></small>
           </div>
         </div>
       </div>

@@ -1,15 +1,10 @@
 <div class="container">
-  <h2 style="text-align: center; margin-bottom: 5%;">AUTORIZACION PARA DOMICILIAR</h2>
+  <h2>AUTORIZACION PARA DOMICILIAR</h2>
 
   <form>
-    <!-- INFORMACION PREELIMINAR -->
-
-
-
-
     <!-- DATOS FISCALES PERSONA FISICA O MORAL -->
     <fieldset>
-      <legend>AUTORIZACION PARA DOMICILIAR</legend>
+      <legend>Autorización para Domiciliar</legend>
       <br>
       <div class="two-columns">
         <div>
@@ -17,8 +12,8 @@
           <input maxlength="50" disabled type="text" id="entity" name="entity" [(ngModel)]="entity" />
         </div>
 
-        <div style="width: 100%; max-width: 400px; margin: auto;">
-          <label for="">Tipo de Servicio Prestado</label>
+        <div>
+          <label>Tipo de Servicio Prestado</label>
           <ng-select [items]="typeService" bindLabel="type" placeholder="El tipo de servicio"
             [(ngModel)]="typeServiceSelected" name="typeService" class="custom-ng-select" [clearable]="true"
             [searchable]="true" dropdownPosition="auto">
@@ -29,96 +24,105 @@
             </ng-template>
           </ng-select>
         </div>
+
         <div>
-          <label for="numNomC">Nombre de cliente, con id</label>
-          <input type="text" id="numNomC" name="numNomC" [(ngModel)]="numNameClient" placeholder="" />
+          <label for="numNomC">Nombre de cliente, con ID</label>
+          <input type="text" id="numNomC" name="numNomC" [(ngModel)]="numNameClient"
+            placeholder="ID de cliente con nombre  ejemplo: 1503 Roberto Saldaña" />
         </div>
 
-
         <div>
-          <div style="width: 100%; max-width: 400px; margin: auto;">
-            <label for="hiring">Plazo de contratación</label>
-            <ng-select [items]="hiringPeriod" bindLabel="period" placeholder="Seleccione el perdiodo"
-              [(ngModel)]="hiringPeriodSelected" [multiple]="false" name="hiring" class="custom-ng-select"
-              [clearable]="true" [searchable]="true" dropdownPosition="auto">
-              <ng-template #ngOptionTemplate let-item="item">
-                <div class="custom-option">
-                  <span> {{ item.id }} - {{ item.period }}</span>
-                </div>
-              </ng-template>
-            </ng-select>
-          </div>
+          <label for="hiring">Plazo de contratación</label>
+          <ng-select [items]="hiringPeriod" bindLabel="period" placeholder="Seleccione el periodo"
+            [(ngModel)]="hiringPeriodSelected" [multiple]="false" name="hiring" class="custom-ng-select"
+            [clearable]="true" [searchable]="true" dropdownPosition="auto">
+            <ng-template #ngOptionTemplate let-item="item">
+              <div class="custom-option">
+                <span> {{ item.id }} - {{ item.period }}</span>
+              </div>
+            </ng-template>
+          </ng-select>
         </div>
 
         <div>
           <label for="nameTi">Titular de la cuenta</label>
-          <input type="text" id="pais" name="nameTi" [(ngModel)]="holder" maxlength="50" />
+          <input type="text" id="nameTi" name="nameTi" [(ngModel)]="holder" maxlength="50" />
         </div>
 
         <div>
-          <label for="zona">Numero de la cuenta</label>
+          <label for="zona">Número de la cuenta</label>
           <input maxlength="50" type="text" id="zona" name="zone" [(ngModel)]="numAccount" />
         </div>
+
         <div>
           <label for="telefono">Celular</label>
-          <input type="tel" id="telefono" name="telPerson" [(ngModel)]="telPerson" placeholder="Ejemplo:524443698521" />
+          <input type="tel" id="telefono" name="telPerson" [(ngModel)]="telPerson" placeholder="Ejemplo: 4443698521" />
         </div>
+
         <div>
-          <label for="dueDate">Fecha de Vencimiento</label>
-          <input type="text" id="dueDate" name="dueDate"
-            [(ngModel)]="dueDate" /><!--Aqui es la fecha de vencimiento de la tarjeta -->
+          <label for="dueDate">Fecha de Vencimiento (MM/YY)</label>
+          <input type="text" id="dueDate" name="dueDate" [(ngModel)]="dueDate" placeholder="MM/YY"
+            pattern="^(0[1-9]|1[0-2])\\/\\d{2}$" />
+          <small style="font-style: italic; color: #666;">Ejemplo: 02/24</small>
         </div>
+
         <div>
-          <label for="correo">Correo Electrónico (Obligatorio)</label>
+          <label for="correo">Correo Electrónico</label>
           <input type="email" id="correo" name="emailPerson" [(ngModel)]="emailPerson" />
         </div>
+
         <div>
-          <label for="address">Domicilio registrador en la tarjeta</label>
+          <label for="address">Domicilio registrado en la tarjeta</label>
           <input type="text" id="address" name="address" [(ngModel)]="address" />
         </div>
+
         <div>
           <label for="cantT">Cantidad total</label>
           <input type="text" id="cantT" name="cantT" [(ngModel)]="cantT" />
         </div>
+
         <div>
-          <div style="width: 100%; max-width: 400px; margin: auto;">
-            <label for="hiring">Días de Cargo</label>
-            <ng-select [items]="daysPay" bindLabel="day" placeholder="Seleccione el día de  a su tarjeta"
-              [(ngModel)]="dayPaySelected" [multiple]="false" name="daysPay" class="custom-ng-select" [clearable]="true"
-              [searchable]="true" dropdownPosition="auto">
-              <ng-template #ngOptionTemplate let-item="item">
-                <div class="custom-option">
-                  <span> {{ item.id }} - {{ item.day }}</span>
-                </div>
-              </ng-template>
-            </ng-select>
-            <small><i>Los días de cargo son los días del mes que se le hará el cargo</i></small>
-          </div>
+          <label for="hiring">Días de Cargo</label>
+          <ng-select [items]="daysPay" bindLabel="day" placeholder="Seleccione el día   
+          " [(ngModel)]="dayPaySelected" [multiple]="false" name="daysPay" class="custom-ng-select" [clearable]="true"
+            [searchable]="true" dropdownPosition="auto">
+            <ng-template #ngOptionTemplate let-item="item">
+              <div class="custom-option">
+                <span> {{ item.id }} - {{ item.day }}</span>
+              </div>
+            </ng-template>
+          </ng-select>
+          <small style="font-style: italic; color: #666;">
+            Los días de cargo son los días del mes que se le hará el cargo a su tarjeta mes con mes.
+          </small>
         </div>
       </div>
     </fieldset>
 
-    <!-- DOMICILIO DE INSTALACION -->
+    <!-- Carga de Documentos -->
     <fieldset>
       <legend>Carga de Documentos</legend>
-
+      <div>
+        <h3>Adjuntar los siguientes documentos:</h3>
+        <ul>
+          <li>Copia del INE</li>
+          <li>Copia del número de cuenta y/o tarjeta</li>
+        </ul>
+      </div>
       <div class="file-upload">
-        <p>Que no pase de 10 MegaBytes</p>
+
+        <p><i>Que no pase de 10 MegaBytes</i></p>
+        <p><i>Comprima los docmentos y subalos</i></p>
+        <p><i>Solo Formato .ZIP</i></p>
         <label for="zipInput" class="file-label">Subir Archivo Comprimido</label>
-        <input type="file" accept="zip" id="zipInput" class="file-input" (change)="onFileSelected($event, 'zipFile')">
+        <input type="file" accept=".zip" id="zipInput" class="file-input"
+          (change)="onFileSelected($event, 'zipFile')" />
         <span class="file-name">{{ zipFileName || 'Ningún archivo seleccionado' }}</span>
       </div>
-      <small>
-
-      </small>
-
     </fieldset>
-
-
 
     <!-- Botón de envío -->
     <button type="button" (click)="submitAll()" class="btn-submit">
-
       Enviar
     </button>
   </form>

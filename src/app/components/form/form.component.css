@@ -1,213 +1,197 @@
-.container {
-    width: 90%;
-    max-width: 1000px;
-    margin: 20px auto;
-    background-color: #fafafa;
-    /* Fondo gris muy claro para el formulario */
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 20px;
-}
-
-h1,
-h2 {
-    color: #555;
-    margin-bottom: 10px;
-}
-
-h1 {
-    text-align: center;
-}
-
-p {
+/* Fondo con gradiente para todo el body */
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #74abe2 0%, #5563de 100%);
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #333;
+    transition: background 0.3s ease-in-out;
+  }
+  
+  /* Contenedor principal */
+  .container {
+    width: 70%;
+    max-width: 900px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    /* Animación de aparición suave */
+    animation: fadeIn 0.8s ease;
+  }
+  
+  /* Animación de aparición */
+  @keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* Título principal */
+  h2 {
     text-align: center;
     margin-bottom: 30px;
-    color: #666;
-}
-
-fieldset {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 20px;
+    color: #ffffff;
+    background-color: #5563de;
     padding: 15px;
-    background-color: #f9f9f9;
-}
-
-legend {
-    font-weight: bold;
-    color: #444;
-    padding: 0 10px;
-}
-
-/* Contenedor de dos columnas dentro de cada fieldset */
-.two-columns {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    /* Dos columnas de igual ancho */
-    gap: 20px;
-    /* Espacio entre columnas y filas */
-}
-
-/* Agrupación para cada par de label + input */
-.two-columns>div {
-    display: flex;
-    flex-direction: column;
-}
-
-label {
-    margin-top: 5px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    font-size: 20px;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  
+  /* fieldset */
+  fieldset {
+    margin-bottom: 25px;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    position: relative;
+    /* Fondo sutil */
+    background-color: #fafafa;
+  }
+  
+  /* legend */
+  legend {
+    font-size: 16px;
     font-weight: bold;
     color: #333;
-}
-
-
-
-.file-upload {
+    padding: 0 10px;
+  }
+  
+  /* Grid de dos columnas */
+  .two-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 20px;
+    row-gap: 20px;
+  }
+  
+  /* Labels */
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #444;
+  }
+  
+  /* Inputs y ng-select */
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  .custom-ng-select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  
+  /* Efecto al enfocar los inputs */
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="tel"]:focus,
+  .custom-ng-select:focus-within {
+    border-color: #5563de;
+    box-shadow: 0 0 0 2px rgba(85, 99, 222, 0.2);
+  }
+  
+  /* ng-select contenedor */
+  .custom-ng-select .ng-select-container {
+    border: 1px solid #ccc !important;
+    border-radius: 6px !important;
+    min-height: 42px !important;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  
+  /* Al enfocar el ng-select */
+  .custom-ng-select .ng-select-container:focus-within,
+  .custom-ng-select .ng-select-container:focus {
+    border-color: #5563de !important;
+    box-shadow: 0 0 0 2px rgba(85, 99, 222, 0.2) !important;
+  }
+  
+  /* Flecha del ng-select */
+  .custom-ng-select .ng-arrow-wrapper {
+    color: #5563de !important;
+  }
+  
+  /* Sección de subir archivos */
+  .file-upload {
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
-    margin-top: 20px;
-}
-
-.file-label {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background 0.3s;
-}
-
-.file-label:hover {
-    background-color: #0056b3;
-}
-
-.file-input {
-    display: none;
-    /* Ocultamos el input */
-}
-
-.file-name {
+    gap: 10px;
     margin-top: 10px;
+  }
+  .file-upload p {
+    margin: 0;
     font-size: 14px;
-    color: #555;
-    font-style: italic;
-}
-
-
-
-
-
-
-
-
-
-
-.ng-select {
-    margin-bottom: 1rem;
-}
-
-input[type="text"],
-input[type="number"],
-input[type="tel"],
-input[type="email"],
-input[type="time"],
-textarea,
-select {
-    width: 100%;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    font-size: 0.95rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-
-/* Botón de Enviar */
-.btn-submit {
-    display: inline-block;
-    background-color: #00008b;
-    /* Azul oscuro/negro */
+    color: #666;
+  }
+  .file-label {
+    background-color: #5563de;
     color: #fff;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
+    padding: 10px 16px;
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 16px;
-    margin-top: 10px;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+  }
+  .file-label:hover {
+    background-color: #3e4eb3;
+  }
+  .file-input {
+    display: none;
+  }
+  .file-name {
+    font-size: 14px;
+    color: #333;
+  }
+  
+  /* Botón de envío */
+  .btn-submit {
+    display: inline-block;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    align-items: center;
     margin-left: 45%;
-
-}
-
-@media (max-width: 768px) {
-    .btn-submit {
-        margin-left: 35%;
+    padding: 12px 24px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  .btn-submit:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+  }
+  .btn-submit:active {
+    background-color: #1e7e34;
+    transform: translateY(0);
+  }
+  
+  /* Ajustes para pantallas pequeñas */
+  @media (max-width: 768px) {
+    .container {
+      width: 90%;
+      margin: 20px auto;
+      padding: 20px;
     }
-}
-
-/* Estilos globales */
-.pre {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.pre,
-tr,
-td {
-    padding: 8px;
-    text-align: center;
-    padding-left: 50px;
-
-}
-
-
-
-/* Media query para pantallas con un ancho máximo de 500px */
-@media (max-width: 420px) {
-    .pre {
-        width: 10px;
-        /* Ajusta el ancho de la tabla */
-        font-size: 12px;
-        /* Ajusta el tamaño del texto en la tabla */
+    .two-columns {
+      grid-template-columns: 1fr;
     }
-
-    .pre,
-    tr,
-    td {
-        padding: 8px;
-        text-align: left;
-        font-size: 5px;
+    h2 {
+      font-size: 18px;
     }
-}
-
-/* Media query para pantallas con un ancho entre 450px y 500px */
-@media (min-width: 421px) and (max-width: 550px) {
-    .pre {
-        width: 10px;
-        /* Ajusta el ancho de la tabla */
-        font-size: 12px;
-        /* Ajusta el tamaño del texto en la tabla */
-    }
-
-    .pre,
-    tr,
-    td {
-        padding: 8px;
-        text-align: left;
-        font-size: 8px;
-    }
-}
-
-
-
-.btn-submit:hover {
-    background-color: #333;
-    /* Oscurecer un poco al pasar el mouse */
-}
-
-::placeholder {
-    font-style: italic;
-}
+  }
+  

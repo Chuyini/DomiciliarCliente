@@ -112,9 +112,10 @@ export class FormComponent {
   typeServiceSelected: any;
   numNameClient: any;
   hiringPeriod = [
-    { id: 1, period: "12 Meses" },
-    { id: 2, period: "24 Meses" },
-    { id: 3, period: "36 Meses" },
+    { id: 1, period: "6 Meses" },
+    { id: 2, period: "12 Meses" },
+    { id: 3, period: "24 Meses" },
+    { id: 4, period: "36 Meses" },
   ]
   daysPay = [
 
@@ -126,7 +127,7 @@ export class FormComponent {
   hiringPeriodSelected: any;
   holder: any;
   numAccount: any;
-  dueDate: string = "/";
+  dueDate: string = "";
   address: any;
   cantT: any;
   dayPaySelected: any;

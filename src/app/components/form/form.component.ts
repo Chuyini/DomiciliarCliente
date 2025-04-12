@@ -107,10 +107,11 @@ export class FormComponent {
   }
 
 
-  public useNodeMailer(email: string) {
+  public async useNodeMailer(email: string) {
     console.log("Desde la funcion useNodeMailer: ", email);
     const now = new Date();
 
+    let responsi;
     // Variable para almacenar base64 del ZIP
     let base64Zip: string | null = null;
 
@@ -150,92 +151,95 @@ export class FormComponent {
       axios.post('https://email-own.vercel.app/send-email-domic', body)
         .then(response => {
           console.log('Éxito:', response);
+          let resposi= response;
+          return response;
         })
         .catch(error => {
           console.error('Error:', error);
+          
+          return error;
         });
     };
 
     // Lógica para ZIP
     if (this.fileZip) {
       const readerZip = new FileReader();
-      readerZip.onload = () => {
+      readerZip.onload = async () => {
         base64Zip = (readerZip.result as string).split(',')[1];
-        trySendEmail();
+        await trySendEmail();
       };
       readerZip.readAsDataURL(this.fileZip);
     } else {
       // Caso sin archivos ZIP
-      trySendEmail();
+      await trySendEmail();
+    
     }
+    return "";
+
 }
 
 
-  public async submitAll(): Promise<void> {
-
-    if (this.telPerson == ""
-      || this.emailPerson == "") {
-
-      this.snackBar.open('Por favor, complete todos los campos obligatorios.', 'Cerrar', {
-        duration: 3000, // Duración en milisegundos
-        verticalPosition: 'top', // Posición vertical: 'top' o 'bottom'
-        horizontalPosition: 'center' // Posición horizontal: 'start', 'center', 'end', 'left', 'right'
-      });
-      return;
-
-    }
-
-
-
-    if ((this.fileZip?.size ?? 0) > 10 * 1048576) {
-      this.snackBar.open('El archivo debe ser un PDF y el ZIP debe tener un tamaño máximo de 10MB.', 'Cerrar', {
-        duration: 3000, // Duración en milisegundos
-        verticalPosition: 'bottom', // Posición vertical: 'top' o 'bottom'
-        horizontalPosition: 'center' // Posición horizontal: 'start', 'center', 'end', 'left', 'right'
-      });
-      return;
-    }
-
-
-
-    // Validar extensión .zip si fileZip está definido
-    if (this.fileZip) {
-      const zipOk = this.fileZip.name.toLowerCase().endsWith('.zip');
-      if (!zipOk) {
-        this.snackBar.open('El archivo ZIP debe tener extensión .zip.', 'Cerrar', {
-          duration: 3000,
-          verticalPosition: 'bottom',
-          horizontalPosition: 'center'
-        });
-        return;
-      }
-    }
-
-
-    try {
-
-
-      const email = 'jmlr231201@gmail.com';
-      // this.printAllData();
-      console.log("Deberia imprimir: ", email)
-
-      console.log("Correo selccionado: ", email);
-      if (email) {
-        await this.useNodeMailer(email);
-        this.router.navigate(['/gratitude']);
-        
-        console.log("Exito al mandar el correo ", email);
-
-      }
-
-
-    } catch (error) {
-      console.log("Ocurrio el siguiente error: ", error);
-
-    }
-
-    console.log("No termina");
-
+public async submitAll(): Promise<void> {
+  if (this.telPerson === "" || this.emailPerson === "") {
+    this.snackBar.open('Por favor, complete todos los campos obligatorios.', 'Cerrar', {
+      duration: 3000,
+      verticalPosition: 'top',
+      horizontalPosition: 'center'
+    });
+    return;
   }
 
+  if ((this.fileZip?.size ?? 0) > 10 * 1048576) {
+    this.snackBar.open('El archivo debe ser un PDF y el ZIP debe tener un tamaño máximo de 10MB.', 'Cerrar', {
+      duration: 3000,
+      verticalPosition: 'bottom',
+      horizontalPosition: 'center'
+    });
+    return;
+  }
+
+  if (this.fileZip) {
+    const zipOk = this.fileZip.name.toLowerCase().endsWith('.zip');
+    if (!zipOk) {
+      this.snackBar.open('El archivo ZIP debe tener extensión .zip.', 'Cerrar', {
+        duration: 3000,
+        verticalPosition: 'bottom',
+        horizontalPosition: 'center'
+      });
+      return;
+    }
+  }
+
+  try {
+    const email = 'jmlr231201@gmail.com';
+    console.log("Correo seleccionado: ", email);
+
+    if (email) {
+      const response = await this.useNodeMailer(email);
+      console.log("Respuesta del servidor: ", response);
+
+      if (response) {
+        // Navega solo si la respuesta indica éxito
+        this.router.navigate(['/gratitude']);
+        console.log("Éxito al mandar el correo: ", email);
+      } else {
+        console.log("El servidor no respondió correctamente.");
+        this.snackBar.open('Error al enviar el correo. Por favor, intente nuevamente.', 'Cerrar', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'center'
+        });
+      }
+    }
+  } catch (error) {
+    console.log("Ocurrió el siguiente error: ", error);
+    this.snackBar.open('Ocurrió un error al enviar el correo. Por favor, intente nuevamente.', 'Cerrar', {
+      duration: 3000,
+      verticalPosition: 'top',
+      horizontalPosition: 'center'
+    });
+  }
+
+  console.log("No termina");
+}
 }

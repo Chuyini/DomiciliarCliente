@@ -113,7 +113,7 @@ export class FormComponent {
     const now = new Date()
 
 
-    // Variables para almacenar base64 de PDF y ZIP
+    // Variables para almacenar base64 de  ZIP
 
     let base64Zip: string | null = null;
 
@@ -184,10 +184,7 @@ export class FormComponent {
       readerZip.readAsDataURL(this.fileZip);
     }
 
-    // Si no hay PDF ni ZIP, enviamos sin adjuntos
-    if (!this.fileBank && !this.fileZip) {
-      trySendEmail();
-    }
+    
   }
 
 

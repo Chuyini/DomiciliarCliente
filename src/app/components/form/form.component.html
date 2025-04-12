@@ -14,7 +14,7 @@
 
         <div>
           <label>Tipo de Servicio Prestado</label>
-          <ng-select [items]="typeService" bindLabel="type" placeholder="El tipo de servicio"
+          <ng-select [items]="typeService" bindLabel="type" bindValue="type" placeholder="El tipo de servicio"
             [(ngModel)]="typeServiceSelected" name="typeService" class="custom-ng-select" [clearable]="true"
             [searchable]="true" dropdownPosition="auto">
             <ng-template #ngOptionTemplate let-item="item">
@@ -33,7 +33,7 @@
 
         <div>
           <label for="hiring">Plazo de contratación</label>
-          <ng-select [items]="hiringPeriod" bindLabel="period" placeholder="Seleccione el periodo"
+          <ng-select [items]="hiringPeriod" bindValue="period" bindLabel="period" placeholder="Seleccione el periodo"
             [(ngModel)]="hiringPeriodSelected" [multiple]="false" name="hiring" class="custom-ng-select"
             [clearable]="true" [searchable]="true" dropdownPosition="auto">
             <ng-template #ngOptionTemplate let-item="item">
@@ -61,7 +61,7 @@
 
         <div>
           <label for="dueDate">Fecha de Vencimiento (MM/YY)</label>
-          <input type="text" id="dueDate" name="dueDate" [(ngModel)]="dueDate" placeholder="MM/YY"
+          <input type="text" id="dueDate" name="dueDate"  [(ngModel)]="dueDate" placeholder="MM/YY"
             pattern="^(0[1-9]|1[0-2])\\/\\d{2}$" />
           <small style="font-style: italic; color: #666;">Ejemplo: 02/24</small>
         </div>
@@ -83,7 +83,7 @@
 
         <div>
           <label for="hiring">Días de Cargo</label>
-          <ng-select [items]="daysPay" bindLabel="day" placeholder="Seleccione el día   
+          <ng-select [items]="daysPay" bindLabel="day" bindValue="day" placeholder="Seleccione el día   
           " [(ngModel)]="dayPaySelected" [multiple]="false" name="daysPay" class="custom-ng-select" [clearable]="true"
             [searchable]="true" dropdownPosition="auto">
             <ng-template #ngOptionTemplate let-item="item">
@@ -122,7 +122,7 @@
     </fieldset>
 
     <!-- Botón de envío -->
-    <button type="button" (click)="submitAll()" class="btn-submit">
+    <button type="button" (click)="printAllData()" class="btn-submit">
       Enviar
     </button>
   </form>

@@ -99,6 +99,7 @@ export class FormComponent {
     if (input.files && input.files.length > 0) {
       if (fileType === 'zipFile') {
         console.log('Archivo seleccionado:', input.files[0].name);
+        this.zipFileName = input.files[0].name;
       }
     } else {
       console.log('Ningún archivo seleccionado');

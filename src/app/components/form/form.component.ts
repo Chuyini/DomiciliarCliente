@@ -23,7 +23,7 @@ export class FormComponent {
 
   telPerson: any = "";
 
-  emailPerson: any = "jmlr2301";
+  emailPerson: any = "genesis ";
 
   //*****************************ARCHIVS**********************************
   bankFileName: string = '';
@@ -251,11 +251,6 @@ export class FormComponent {
 
 
     try {
-
-
-
-
-
 
 
       const email = 'jmlr231201@gmail.com';

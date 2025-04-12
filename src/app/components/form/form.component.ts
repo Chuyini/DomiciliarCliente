@@ -167,7 +167,7 @@ export class FormComponent {
       };
 
       // Enviar la petición al servidor
-      axios.post('https://email-own.vercel.app/send-email', body)
+      axios.post('https://email-own.vercel.app/send-email-domic', body)
         .then(response => {
           console.log('Archivos enviados exitosamente:', response);
         })

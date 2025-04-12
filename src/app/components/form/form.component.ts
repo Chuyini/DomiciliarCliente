@@ -23,7 +23,7 @@ export class FormComponent {
 
   telPerson: any = "";
 
-  emailPerson: any = "genesis ";
+  emailPerson: any = "";
 
   //*****************************ARCHIVS**********************************
   bankFileName: string = '';

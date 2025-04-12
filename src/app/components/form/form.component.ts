@@ -39,7 +39,7 @@ export class FormComponent {
     { id: 2, type: "20 Megabits/s" },
     { id: 3, type: "30 Megabits/s" },
   ]
-  
+
   typeServiceSelected: any;
   numNameClient: any;
   hiringPeriod = [
@@ -97,19 +97,11 @@ export class FormComponent {
   onFileSelected(event: Event, fileType: string): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
-      if (fileType === 'bankFile') {
-        this.bankFileName = input.files[0].name;
-        this.fileBank = input.files[0];
-      } else if (fileType === 'zipFile') {
-
-        this.fileZip = input.files[0];
+      if (fileType === 'zipFile') {
+        console.log('Archivo seleccionado:', input.files[0].name);
       }
     } else {
-      if (fileType === 'bankFile') {
-        this.bankFileName = 'Ningún archivo seleccionado';
-      } else if (fileType === 'zipFile') {
-        this.zipFileName = 'Ningún archivo seleccionado';
-      }
+      console.log('Ningún archivo seleccionado');
     }
   }
 
@@ -117,7 +109,7 @@ export class FormComponent {
   public useNodeMailer(email: string) {
     console.log("Desde la funcion useNodeMailer: ", email);
 
-    const now = new Date() 
+    const now = new Date()
 
 
     // Variables para almacenar base64 de PDF y ZIP
@@ -212,7 +204,7 @@ export class FormComponent {
 
     }
 
-    
+
 
     if ((this.fileZip?.size ?? 0) > 10 * 1048576) {
       this.snackBar.open('El archivo debe ser un PDF y el ZIP debe tener un tamaño máximo de 10MB.', 'Cerrar', {

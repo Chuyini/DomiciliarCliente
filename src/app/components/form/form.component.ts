@@ -109,23 +109,13 @@ export class FormComponent {
 
   public useNodeMailer(email: string) {
     console.log("Desde la funcion useNodeMailer: ", email);
+    const now = new Date();
 
-    const now = new Date()
-
-
-    // Variables para almacenar base64 de  ZIP
-
+    // Variable para almacenar base64 del ZIP
     let base64Zip: string | null = null;
 
-    // Crearemos dos FileReader, pero solo si existen los archivos
-
-    let readerZip: FileReader | null = null;
-
-    // Función para INTENTAR enviar el correo cuando tengamos la info necesaria
     const trySendEmail = () => {
-      // Construir el array de attachments
       const attachmentsArray = [];
-
 
       if (base64Zip) {
         attachmentsArray.push({
@@ -135,13 +125,12 @@ export class FormComponent {
         });
       }
 
-      // Construir el body con ambos adjuntos
       const body = {
         to: email,
         subject: 'AUTORIZACION PARA DOMICILIAR CLIENTE',
-        text: '¡Hola! Domiciliacion de Cliente de clientes adjunto archivos (PDF y/o ZIP)',
+        text: '¡Hola! Domiciliacion de Cliente de clientes adjunto archivo ZIP',
         attachments: attachmentsArray,
-        variables: [{
+        variables: {
           location: 'San Luis Potosí, S.L.P.',
           timestamp: now,
           clientId: this.numNameClient,
@@ -155,37 +144,31 @@ export class FormComponent {
           email: this.emailPerson,
           totalAmount: this.cantT,
           paymentDays: this.dayPaySelected
-        }]
-
+        }
       };
 
-      // Enviar la petición al servidor
       axios.post('https://email-own.vercel.app/send-email-domic', body)
         .then(response => {
-          console.log('Archivos enviados exitosamente:', response);
+          console.log('Éxito:', response);
         })
         .catch(error => {
-          console.error('Error al enviar los archivos', error);
+          console.error('Error:', error);
         });
     };
 
-
-
-    // Lógica para leer el ZIP (si existe)
+    // Lógica para ZIP
     if (this.fileZip) {
-      readerZip = new FileReader();
+      const readerZip = new FileReader();
       readerZip.onload = () => {
-        base64Zip = (readerZip!.result as string).split(',')[1];
-        // Verificamos si no hay PDF o si PDF ya está listo
-        if (!this.fileBank) {
-          trySendEmail();
-        }
+        base64Zip = (readerZip.result as string).split(',')[1];
+        trySendEmail();
       };
       readerZip.readAsDataURL(this.fileZip);
+    } else {
+      // Caso sin archivos ZIP
+      trySendEmail();
     }
-
-    
-  }
+}
 
 
   public async submitAll(): Promise<void> {

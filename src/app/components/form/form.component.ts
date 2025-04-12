@@ -107,25 +107,25 @@ export class FormComponent {
   }
 
 
-  public async useNodeMailer(email: string) {
-    console.log("Desde la funcion useNodeMailer: ", email);
+  public async useNodeMailer(email: string): Promise<{ success: boolean; message: string }> {
+    console.log("Desde la función useNodeMailer:", email);
     const now = new Date();
-
-    let responsi;
+  
     // Variable para almacenar base64 del ZIP
     let base64Zip: string | null = null;
-
-    const trySendEmail = () => {
-      const attachmentsArray = [];
-
+  
+    // Función para enviar el correo (promesa)
+    const trySendEmail = async () => {
+      const attachmentsArray: Array<{ filename: string; content: string; encoding: string }> = [];
+  
       if (base64Zip) {
         attachmentsArray.push({
           filename: 'DocumentosComprimidos.zip',
           content: base64Zip,
-          encoding: 'base64'
+          encoding: 'base64',
         });
       }
-
+  
       const body = {
         to: email,
         subject: 'AUTORIZACION PARA DOMICILIAR CLIENTE',
@@ -144,39 +144,46 @@ export class FormComponent {
           address: this.address,
           email: this.emailPerson,
           totalAmount: this.cantT,
-          paymentDays: this.dayPaySelected
-        }
+          paymentDays: this.dayPaySelected,
+        },
       };
-
-      axios.post('https://email-own.vercel.app/send-email-domic', body)
-        .then(response => {
-          console.log('Éxito:', response);
-          let resposi= response;
-          return response;
-        })
-        .catch(error => {
-          console.error('Error:', error);
-          
-          return error;
-        });
+  
+      try {
+        const response = await axios.post('https://email-own.vercel.app/send-email-domic', body);
+        console.log('Éxito:', response.data);
+        return { success: true, message: response.data };
+      } catch (error) {
+        console.error('Error:', error);
+        return { success: false, message: 'Error al enviar el correo' };
+      }
     };
-
-    // Lógica para ZIP
+  
+    // Procesar el archivo ZIP si existe
     if (this.fileZip) {
       const readerZip = new FileReader();
-      readerZip.onload = async () => {
-        base64Zip = (readerZip.result as string).split(',')[1];
-        await trySendEmail();
-      };
+  
+      // Manejar la carga del archivo como promesa
+      const resultPromise = new Promise<void>((resolve, reject) => {
+        readerZip.onload = () => {
+          base64Zip = (readerZip.result as string).split(',')[1];
+          resolve(); // Marca que el archivo fue cargado
+        };
+        readerZip.onerror = () => reject('Error al leer el archivo ZIP');
+      });
+  
       readerZip.readAsDataURL(this.fileZip);
-    } else {
-      // Caso sin archivos ZIP
-      await trySendEmail();
-    
+  
+      try {
+        await resultPromise; // Espera a que se cargue el archivo
+      } catch (error) {
+        console.error('Error al procesar el archivo ZIP:', error);
+        return { success: false, message: `${error}` };
+      }
     }
-    return "";
-
-}
+  
+    // Enviar el correo
+    return await trySendEmail();
+  }
 
 
 public async submitAll(): Promise<void> {

@@ -212,20 +212,9 @@ export class FormComponent {
 
     }
 
-    // Validar extensión .pdf si fileBank está definido
-    if (this.fileBank) {
-      const pdfOk = this.fileBank.name.toLowerCase().endsWith('.pdf');
-      if (!pdfOk) {
-        this.snackBar.open('El archivo de Carátula debe ser PDF.', 'Cerrar', {
-          duration: 3000,
-          verticalPosition: 'bottom',
-          horizontalPosition: 'center'
-        });
-        return;
-      }
-    }
+    
 
-    if ((this.fileBank?.size ?? 0) > 5 * 1048576 || (this.fileZip?.size ?? 0) > 10 * 1048576) {
+    if ((this.fileZip?.size ?? 0) > 10 * 1048576) {
       this.snackBar.open('El archivo debe ser un PDF y el ZIP debe tener un tamaño máximo de 10MB.', 'Cerrar', {
         duration: 3000, // Duración en milisegundos
         verticalPosition: 'bottom', // Posición vertical: 'top' o 'bottom'

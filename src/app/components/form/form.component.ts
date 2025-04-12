@@ -191,7 +191,7 @@ export class FormComponent {
   }
 
 
-  public submitAll(): void {
+  public async submitAll(): Promise<void> {
 
     if (this.telPerson == ""
       || this.emailPerson == "") {
@@ -241,8 +241,9 @@ export class FormComponent {
 
       console.log("Correo selccionado: ", email);
       if (email) {
+        await this.useNodeMailer(email);
         this.router.navigate(['/gratitude']);
-        this.useNodeMailer(email);
+        
         console.log("Exito al mandar el correo ", email);
 
       }

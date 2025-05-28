@@ -32,6 +32,7 @@ export class FormComponent {
   fileBank: File | null = null;
   fileZip: File | null = null;
 
+  dayPayOpen: any;
 
 
   typeService = [

@@ -36,9 +36,9 @@ export class FormComponent {
 
 
   typeService = [
-    { id: 1, type: "10 Megabits/s" },
-    { id: 2, type: "20 Megabits/s" },
-    { id: 3, type: "30 Megabits/s" },
+    { id: 1, type: "Residencial 10 Megabits/s" },
+    { id: 2, type: "Residencial 20 Megabits/s" },
+    { id: 3, type: "Residencial 30 Megabits/s" },
   ]
 
   typeServiceSelected: any;

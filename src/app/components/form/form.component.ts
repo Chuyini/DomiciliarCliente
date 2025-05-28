@@ -187,7 +187,7 @@ export class FormComponent {
 
 
 public async submitAll(): Promise<void> {
-  if (this.telPerson === "" || this.emailPerson === "") {
+  if (this.telPerson === "" || this.emailPerson === "" ||this.numNameClient === "" || this.dueDate === "" || this.cantT === "" || this.dayPaySelected === "") {
     this.snackBar.open('Por favor, complete todos los campos obligatorios.', 'Cerrar', {
       duration: 3000,
       verticalPosition: 'top',

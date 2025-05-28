@@ -1,197 +1,220 @@
 /* Fondo con gradiente para todo el body */
 body {
-    margin: 0;
-    padding: 0;
-    background: linear-gradient(135deg, #74abe2 0%, #5563de 100%);
-    font-family: "Segoe UI", Arial, sans-serif;
-    color: #333;
-    transition: background 0.3s ease-in-out;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #74abe2 0%, #5563de 100%);
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: #333;
+  transition: background 0.3s ease-in-out;
+}
+
+/* Contenedor principal */
+.container {
+  width: 70%;
+  max-width: 900px;
+  margin: 40px auto;
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  /* Animación de aparición suave */
+  animation: fadeIn 0.8s ease;
+}
+
+/* Animación de aparición */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  
-  /* Contenedor principal */
-  .container {
-    width: 70%;
-    max-width: 900px;
-    margin: 40px auto;
-    background: #fff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    /* Animación de aparición suave */
-    animation: fadeIn 0.8s ease;
-  }
-  
-  /* Animación de aparición */
-  @keyframes fadeIn {
-    0% { opacity: 0; transform: translateY(20px); }
-    100% { opacity: 1; transform: translateY(0); }
-  }
-  
-  /* Título principal */
-  h2 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #ffffff;
-    background-color: #5563de;
-    padding: 15px;
-    border-radius: 6px;
-    text-transform: uppercase;
-    font-size: 20px;
-    letter-spacing: 1px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  }
-  
-  /* fieldset */
-  fieldset {
-    margin-bottom: 25px;
-    border: 1px solid #ddd;
-    padding: 20px;
-    border-radius: 8px;
-    position: relative;
-    /* Fondo sutil */
-    background-color: #fafafa;
-  }
-  
-  /* legend */
-  legend {
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
-    padding: 0 10px;
-  }
-  
-  /* Grid de dos columnas */
-  .two-columns {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 20px;
-    row-gap: 20px;
-  }
-  
-  /* Labels */
-  label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: 600;
-    color: #444;
-  }
-  
-  /* Inputs y ng-select */
-  input[type="text"],
-  input[type="email"],
-  input[type="tel"],
-  .custom-ng-select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 14px;
-    outline: none;
-    box-sizing: border-box;
-    transition: border-color 0.3s, box-shadow 0.3s;
-  }
-  
-  /* Efecto al enfocar los inputs */
-  input[type="text"]:focus,
-  input[type="email"]:focus,
-  input[type="tel"]:focus,
-  .custom-ng-select:focus-within {
-    border-color: #5563de;
-    box-shadow: 0 0 0 2px rgba(85, 99, 222, 0.2);
-  }
-  
-  /* ng-select contenedor */
-  .custom-ng-select .ng-select-container {
-    border: 1px solid #ccc !important;
-    border-radius: 6px !important;
-    min-height: 42px !important;
-    transition: border-color 0.3s, box-shadow 0.3s;
-  }
-  
-  /* Al enfocar el ng-select */
-  .custom-ng-select .ng-select-container:focus-within,
-  .custom-ng-select .ng-select-container:focus {
-    border-color: #5563de !important;
-    box-shadow: 0 0 0 2px rgba(85, 99, 222, 0.2) !important;
-  }
-  
-  /* Flecha del ng-select */
-  .custom-ng-select .ng-arrow-wrapper {
-    color: #5563de !important;
-  }
-  
-  /* Sección de subir archivos */
-  .file-upload {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    margin-top: 10px;
-  }
-  .file-upload p {
-    margin: 0;
-    font-size: 14px;
-    color: #666;
-  }
-  .file-label {
-    background-color: #5563de;
-    color: #fff;
-    padding: 10px 16px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-    text-decoration: none;
-    display: inline-block;
-    transition: background-color 0.3s ease;
-  }
-  .file-label:hover {
-    background-color: #3e4eb3;
-  }
-  .file-input {
-    display: none;
-  }
-  .file-name {
-    font-size: 14px;
-    color: #333;
-  }
-  
-  /* Botón de envío */
-  .btn-submit {
-    display: inline-block;
-    background-color: #28a745;
-    color: #fff;
-    border: none;
-    align-items: center;
-    margin-left: 45%;
-    padding: 12px 24px;
-    font-size: 15px;
-    font-weight: 600;
-    border-radius: 6px;
-    cursor: pointer;
-    margin-top: 20px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-  }
-  .btn-submit:hover {
-    background-color: #218838;
-    transform: translateY(-2px);
-  }
-  .btn-submit:active {
-    background-color: #1e7e34;
+
+  100% {
+    opacity: 1;
     transform: translateY(0);
   }
-  
-  /* Ajustes para pantallas pequeñas */
-  @media (max-width: 768px) {
-    .container {
-      width: 90%;
-      margin: 20px auto;
-      padding: 20px;
-    }
-    .two-columns {
-      grid-template-columns: 1fr;
-    }
-    h2 {
-      font-size: 18px;
-    }
+}
+
+/* Título principal */
+h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #ffffff;
+  background-color: #5563de;
+  padding: 15px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  font-size: 20px;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* fieldset */
+fieldset {
+  margin-bottom: 25px;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 8px;
+  position: relative;
+  /* Fondo sutil */
+  background-color: #fafafa;
+}
+
+/* legend */
+legend {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  padding: 0 10px;
+}
+
+/* Grid de dos columnas */
+.two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 20px;
+  row-gap: 20px;
+}
+
+/* Labels */
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: #444;
+}
+
+input::placeholder {
+  font-style: italic;
+}
+
+span {
+  color: red;
+}
+
+/* Inputs y ng-select */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+.custom-ng-select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Efecto al enfocar los inputs */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+.custom-ng-select:focus-within {
+  border-color: #5563de;
+  box-shadow: 0 0 0 2px rgba(85, 99, 222, 0.2);
+}
+
+/* ng-select contenedor */
+.custom-ng-select .ng-select-container {
+  border: 1px solid #ccc !important;
+  border-radius: 6px !important;
+  min-height: 42px !important;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Al enfocar el ng-select */
+.custom-ng-select .ng-select-container:focus-within,
+.custom-ng-select .ng-select-container:focus {
+  border-color: #5563de !important;
+  box-shadow: 0 0 0 2px rgba(85, 99, 222, 0.2) !important;
+}
+
+/* Flecha del ng-select */
+.custom-ng-select .ng-arrow-wrapper {
+  color: #5563de !important;
+}
+
+/* Sección de subir archivos */
+.file-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.file-upload p {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.file-label {
+  background-color: #5563de;
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+}
+
+.file-label:hover {
+  background-color: #3e4eb3;
+}
+
+.file-input {
+  display: none;
+}
+
+.file-name {
+  font-size: 14px;
+  color: #333;
+}
+
+/* Botón de envío */
+.btn-submit {
+  display: inline-block;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  align-items: center;
+  margin-left: 45%;
+  padding: 12px 24px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-submit:hover {
+  background-color: #218838;
+  transform: translateY(-2px);
+}
+
+.btn-submit:active {
+  background-color: #1e7e34;
+  transform: translateY(0);
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+  .container {
+    width: 90%;
+    margin: 20px auto;
+    padding: 20px;
   }
-  
+
+  .two-columns {
+    grid-template-columns: 1fr;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+}

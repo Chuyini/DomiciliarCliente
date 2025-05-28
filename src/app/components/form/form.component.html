@@ -26,7 +26,7 @@
         </div>
 
         <div>
-          <label for="numNomC">Nombre de cliente, con ID</label>
+          <label for="numNomC">Nombre de cliente, con ID <span>*</span></label>
           <input type="text" id="numNomC" name="numNomC" [(ngModel)]="numNameClient"
             placeholder="ID de cliente con nombre  ejemplo: 1503 Roberto Saldaña" />
         </div>
@@ -50,7 +50,7 @@
         </div>
 
         <div>
-          <label for="zona">Número de la cuenta</label>
+          <label for="zona">Número de tarjeta (16 dígitos)<span>*</span></label>
           <input maxlength="50" type="text" id="zona" name="zone" [(ngModel)]="numAccount" />
         </div>
 
@@ -60,7 +60,7 @@
         </div>
 
         <div>
-          <label for="dueDate">Fecha de Vencimiento (MM/YY)</label>
+          <label for="dueDate">Fecha de vencimiento tarjeta (MM/YY)<span>*</span></label>
           <input type="text" id="dueDate" name="dueDate"  [(ngModel)]="dueDate" placeholder="MM/YY"
             pattern="^(0[1-9]|1[0-2])\\/\\d{2}$" />
           <small style="font-style: italic; color: #666;">Ejemplo: 02/24</small>
@@ -77,12 +77,12 @@
         </div>
 
         <div>
-          <label for="cantT">Cantidad total</label>
+          <label for="cantT">Cantidad total<span>*</span></label>
           <input type="text" id="cantT" name="cantT" [(ngModel)]="cantT" />
         </div>
 
         <div>
-          <label for="hiring">Días de Cargo</label>
+          <label for="hiring">Días de Cargo <span>*</span></label>
           <ng-select [items]="daysPay" bindLabel="day" bindValue="day" placeholder="Seleccione el día   
           " [(ngModel)]="dayPaySelected" [multiple]="false" name="daysPay" class="custom-ng-select" [clearable]="true"
             [searchable]="true" dropdownPosition="auto">

@@ -8,6 +8,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 //import { environment } from '../../../environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import axios from 'axios';
+import { jsPDF } from 'jspdf';
+
+
 
 @Component({
   selector: 'app-form',
@@ -24,6 +27,8 @@ export class FormComponent {
   telPerson: any = "";
 
   emailPerson: any = "";
+
+  checked: boolean = false;
 
   //*****************************ARCHIVS**********************************
   bankFileName: string = '';
@@ -107,147 +112,196 @@ export class FormComponent {
     }
   }
 
+  generatePDF() {
+    const doc = new jsPDF();
+    let y = 10; // posición vertical inicial
 
-  public async useNodeMailer(email: string): Promise<{ success: boolean; message: string }> {
-    console.log("Desde la función useNodeMailer:", email);
-    const now = new Date();
-  
-    // Variable para almacenar base64 del ZIP
+    const addLine = (text: string, space = 10) => {
+      doc.text(text, 10, y);
+      y += space;
+    };
+
+    // Sección: Encabezado
+    doc.setFontSize(16);
+    doc.setFont('helvetica', 'bold');
+    addLine('ALTA DE CLIENTES');
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'normal');
+    addLine(`Fecha: ${new Date().toLocaleDateString()}`);
+    addLine(`Hora: ${new Date().toLocaleTimeString()}`);
+    addLine(`Entidad: ${this.entity}`);
+    addLine(`Teléfono: ${this.telPerson}`);
+    addLine(`Email: ${this.emailPerson}`);
+    addLine('----------------------------------------');
+    // Sección: Datos del Cliente
+    addLine(`Nombre del Cliente: ${this.numNameClient}`);
+    addLine(`Tipo de Servicio: ${this.typeServiceSelected}`);
+    addLine(`Plazo de Contratación: ${this.hiringPeriodSelected}`);
+    addLine(`Titular de la Cuenta: ${this.holder}`);
+    addLine(`Número de Cuenta: ${this.numAccount}`);
+    addLine(`Fecha de Vencimiento: ${this.dueDate}`);
+    addLine(`Domicilio: ${this.address}`);
+    addLine(`Cantidad Total: ${this.cantT}`);
+    addLine(`Días de Cargo: ${this.dayPaySelected}`);
+    addLine('----------------------------------------');
+    // Sección: Términos y Condiciones
+    addLine('Términos y Condiciones:');
+    addLine('1. El cliente acepta los términos y condiciones del servicio.');
+
+    doc.save('Domiciliacion_Pdnt.pdf');
+  }
+
+
+
+  public useNodeMailer(emails: any) {
+    console.log("Desde la funcion useNodeMailer: ", emails);
+
+
+
+    // Variables para almacenar base64 de PDF y ZIP
+    let base64Pdf: string | null = null;
     let base64Zip: string | null = null;
-  
-    // Función para enviar el correo (promesa)
-    const trySendEmail = async () => {
-      const attachmentsArray: Array<{ filename: string; content: string; encoding: string }> = [];
-  
+
+    // Crearemos dos FileReader, pero solo si existen los archivos
+    let readerPdf: FileReader | null = null;
+    let readerZip: FileReader | null = null;
+
+    // Función para INTENTAR enviar el correo cuando tengamos la info necesaria
+    const trySendEmail = () => {
+      // Construir el array de attachments
+      const attachmentsArray = [];
+
+
       if (base64Zip) {
         attachmentsArray.push({
           filename: 'DocumentosComprimidos.zip',
           content: base64Zip,
-          encoding: 'base64',
+          encoding: 'base64'
         });
       }
-  
+
+      // Construir el body con ambos adjuntos
       const body = {
-        to: email,
-        subject: 'AUTORIZACION PARA DOMICILIAR CLIENTE',
-        text: '¡Hola! Domiciliacion de Cliente de clientes adjunto archivo ZIP',
+        to: emails,
+        subject: 'ALTA DE CLIENTES',
+        text: `¡Hola! te entrego el Alta de clientes: ${this.emailPerson} 😊👌 ➡️`,
         attachments: attachmentsArray,
-        variables: {
-          location: 'San Luis Potosí, S.L.P.',
-          timestamp: now,
-          clientId: this.numNameClient,
-          serviceType: this.typeServiceSelected,
-          hiringPeriod: this.hiringPeriodSelected,
-          accountHolder: this.holder,
-          accountNumber: this.numAccount,
-          phoneNumber: this.telPerson,
-          dueDate: this.dueDate,
-          address: this.address,
-          email: this.emailPerson,
-          totalAmount: this.cantT,
-          paymentDays: this.dayPaySelected,
-        },
+        variables: [
+
+
+        ]
       };
-  
-      try {
-        const response = await axios.post('https://email-own.vercel.app/send-email-domic', body);
-        console.log('Éxito:', response.data);
-        return { success: true, message: response.data };
-      } catch (error) {
-        console.error('Error:', error);
-        return { success: false, message: 'Error al enviar el correo' };
-      }
+
+      this.generatePDF();
+
+      // Enviar la petición al servidor 
+
+      //https://email-own.vercel.app/send-email
+      axios.post('https://emailown-production.up.railway.app/send-email', body)
+        .then(response => {
+          console.log('Archivos enviados exitosamente:', response);
+          this.router.navigate(['/gratitude']);
+        })
+        .catch(error => {
+          console.error('Error al enviar los archivos', error);
+        });
     };
-  
-    // Procesar el archivo ZIP si existe
-    if (this.fileZip) {
-      const readerZip = new FileReader();
-  
-      // Manejar la carga del archivo como promesa
-      const resultPromise = new Promise<void>((resolve, reject) => {
-        readerZip.onload = () => {
-          base64Zip = (readerZip.result as string).split(',')[1];
-          resolve(); // Marca que el archivo fue cargado
-        };
-        readerZip.onerror = () => reject('Error al leer el archivo ZIP');
-      });
-  
-      readerZip.readAsDataURL(this.fileZip);
-  
-      try {
-        await resultPromise; // Espera a que se cargue el archivo
-      } catch (error) {
-        console.error('Error al procesar el archivo ZIP:', error);
-        return { success: false, message: `${error}` };
-      }
+
+    // Lógica para leer el PDF (si existe)
+    if (this.fileBank) {
+      readerPdf = new FileReader();
+      readerPdf.onload = () => {
+        base64Pdf = (readerPdf!.result as string).split(',')[1];
+        // Verificamos si no hay ZIP o si ZIP ya está listo
+        if (!this.fileZip || base64Zip !== null) {
+          trySendEmail();
+        }
+      };
+      readerPdf.readAsDataURL(this.fileBank);
     }
-  
-    // Enviar el correo
-    return await trySendEmail();
+
+    // Lógica para leer el ZIP (si existe)
+    if (this.fileZip) {
+      readerZip = new FileReader();
+      readerZip.onload = () => {
+        base64Zip = (readerZip!.result as string).split(',')[1];
+        // Verificamos si no hay PDF o si PDF ya está listo
+        if (!this.fileBank || base64Pdf !== null) {
+          trySendEmail();
+        }
+      };
+      readerZip.readAsDataURL(this.fileZip);
+    }
+
+    // Si no hay PDF ni ZIP, enviamos sin adjuntos
+    if (!this.fileBank && !this.fileZip) {
+      trySendEmail();
+    }
   }
 
 
-public async submitAll(): Promise<void> {
-  if (this.numNameClient === "" || this.dueDate === "" || this.cantT === "" || this.dayPaySelected === "") {
-    this.snackBar.open('Por favor, complete todos los campos obligatorios.', 'Cerrar', {
-      duration: 3000,
-      verticalPosition: 'top',
-      horizontalPosition: 'center'
-    });
-    return;
-  }
 
-  if ((this.fileZip?.size ?? 0) > 10 * 1048576) {
-    this.snackBar.open('El archivo debe ser un PDF y el ZIP debe tener un tamaño máximo de 10MB.', 'Cerrar', {
-      duration: 3000,
-      verticalPosition: 'bottom',
-      horizontalPosition: 'center'
-    });
-    return;
-  }
 
-  if (this.fileZip) {
-    const zipOk = this.fileZip.name.toLowerCase().endsWith('.zip');
-    if (!zipOk) {
-      this.snackBar.open('El archivo ZIP debe tener extensión .zip.', 'Cerrar', {
+
+  public async submitAll(): Promise<void> {
+    if (this.numNameClient === "" || this.dueDate === "" || this.cantT === "" || this.dayPaySelected === "") {
+      this.snackBar.open('Por favor, complete todos los campos obligatorios.', 'Cerrar', {
+        duration: 3000,
+        verticalPosition: 'top',
+        horizontalPosition: 'center'
+      });
+      return;
+    }
+    if (this.checked === false) {
+      this.snackBar.open('Por favor, acepte los términos y condiciones.', 'Cerrar', {
+        duration: 3000,
+        verticalPosition: 'top',
+        horizontalPosition: 'center'
+      });
+      return;
+
+    }
+
+    if ((this.fileZip?.size ?? 0) > 10 * 1048576) {
+      this.snackBar.open('El archivo debe ser un PDF y el ZIP debe tener un tamaño máximo de 10MB.', 'Cerrar', {
         duration: 3000,
         verticalPosition: 'bottom',
         horizontalPosition: 'center'
       });
       return;
     }
-  }
 
-  try {
-    const email = 'jmlr231201@gmail.com';
-    console.log("Correo seleccionado: ", email);
-
-    if (email) {
-      const response = await this.useNodeMailer(email);
-      console.log("Respuesta del servidor: ", response);
-
-      if (response) {
-        // Navega solo si la respuesta indica éxito
-        this.router.navigate(['/gratitude']);
-        console.log("Éxito al mandar el correo: ", email);
-      } else {
-        console.log("El servidor no respondió correctamente.");
-        this.snackBar.open('Error al enviar el correo. Por favor, intente nuevamente.', 'Cerrar', {
+    if (this.fileZip) {
+      const zipOk = this.fileZip.name.toLowerCase().endsWith('.zip');
+      if (!zipOk) {
+        this.snackBar.open('El archivo ZIP debe tener extensión .zip.', 'Cerrar', {
           duration: 3000,
-          verticalPosition: 'top',
+          verticalPosition: 'bottom',
           horizontalPosition: 'center'
         });
+        return;
       }
     }
-  } catch (error) {
-    console.log("Ocurrió el siguiente error: ", error);
-    this.snackBar.open('Ocurrió un error al enviar el correo. Por favor, intente nuevamente.', 'Cerrar', {
-      duration: 3000,
-      verticalPosition: 'top',
-      horizontalPosition: 'center'
-    });
-  }
 
-  console.log("No termina");
-}
+    try {
+      const email = 'jmlr231201@gmail.com';
+      console.log("Correo seleccionado: ", email);
+
+      if (email) {
+        await this.useNodeMailer(email);
+        console.log("Respuesta del servidor: ");
+
+
+      }
+    } catch (error) {
+      console.log("Ocurrió el siguiente error: ", error);
+      this.snackBar.open('Ocurrió un error al enviar el correo. Por favor, intente nuevamente.', 'Cerrar', {
+        duration: 3000,
+        verticalPosition: 'top',
+        horizontalPosition: 'center'
+      });
+    }
+
+    console.log("No termina");
+  }
 }

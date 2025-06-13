@@ -34,7 +34,7 @@ export class FormComponent {
   bankFileName: string = '';
   zipFileName: string = '';
 
-  fileBank: File | null = null;
+
   fileZip: File | null = null;
 
   dayPayOpen: any;
@@ -158,12 +158,12 @@ export class FormComponent {
 
 
 
-    // Variables para almacenar base64 de PDF y ZIP
-    let base64Pdf: string | null = null;
+
     let base64Zip: string | null = null;
 
     // Crearemos dos FileReader, pero solo si existen los archivos
-    let readerPdf: FileReader | null = null;
+
+
     let readerZip: FileReader | null = null;
 
     // Función para INTENTAR enviar el correo cuando tengamos la info necesaria
@@ -183,12 +183,25 @@ export class FormComponent {
       // Construir el body con ambos adjuntos
       const body = {
         to: emails,
-        subject: 'ALTA DE CLIENTES',
-        text: `¡Hola! te entrego el Alta de clientes: ${this.emailPerson} 😊👌 ➡️`,
+        subject: 'DOMICILIACION DE CLIENTES',
+        text: `¡Hola! te entrego el Alta de clientes: ${this.emailPerson} 💳 😊👌 ➡️`,
         attachments: attachmentsArray,
         variables: [
+          {
+            entidad: this.entity,
+            telPerson: this.telPerson,
+            emailPerson: this.emailPerson,
+            numNameClient: this.numNameClient,
+            typeServiceSelected: this.typeServiceSelected,
+            hiringPeriodSelected: this.hiringPeriodSelected,
+            holder: this.holder,
+            numAccount: this.numAccount,
+            dueDate: this.dueDate,
+            address: this.address,
+            cantT: this.cantT,
+            dayPaySelected: this.dayPaySelected
 
-
+          }
         ]
       };
 
@@ -197,7 +210,7 @@ export class FormComponent {
       // Enviar la petición al servidor 
 
       //https://email-own.vercel.app/send-email
-      axios.post('https://emailown-production.up.railway.app/send-email', body)
+      axios.post('https://emailown-production.up.railway.app/send-email-domic', body)
         .then(response => {
           console.log('Archivos enviados exitosamente:', response);
           this.router.navigate(['/gratitude']);
@@ -207,18 +220,6 @@ export class FormComponent {
         });
     };
 
-    // Lógica para leer el PDF (si existe)
-    if (this.fileBank) {
-      readerPdf = new FileReader();
-      readerPdf.onload = () => {
-        base64Pdf = (readerPdf!.result as string).split(',')[1];
-        // Verificamos si no hay ZIP o si ZIP ya está listo
-        if (!this.fileZip || base64Zip !== null) {
-          trySendEmail();
-        }
-      };
-      readerPdf.readAsDataURL(this.fileBank);
-    }
 
     // Lógica para leer el ZIP (si existe)
     if (this.fileZip) {
@@ -226,15 +227,15 @@ export class FormComponent {
       readerZip.onload = () => {
         base64Zip = (readerZip!.result as string).split(',')[1];
         // Verificamos si no hay PDF o si PDF ya está listo
-        if (!this.fileBank || base64Pdf !== null) {
-          trySendEmail();
-        }
+
+        trySendEmail();
+
       };
       readerZip.readAsDataURL(this.fileZip);
     }
 
     // Si no hay PDF ni ZIP, enviamos sin adjuntos
-    if (!this.fileBank && !this.fileZip) {
+    if (!this.fileZip) {
       trySendEmail();
     }
   }

@@ -70,7 +70,7 @@ export class FormComponent {
   dayPaySelected: any;
 
 
-
+  
 
   public printAllData(): void {
 
@@ -103,9 +103,10 @@ export class FormComponent {
   onFileSelected(event: Event, fileType: string): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
-      if (fileType === 'zipFile') {
+      if (fileType === 'fileZip') {
         console.log('Archivo seleccionado:', input.files[0].name);
         this.zipFileName = input.files[0].name;
+        this.fileZip = input.files[0];
       }
     } else {
       console.log('Ningún archivo seleccionado');
@@ -184,11 +185,11 @@ export class FormComponent {
       const body = {
         to: emails,
         subject: 'DOMICILIACION DE CLIENTES',
-        text: `¡Hola! te entrego el Alta de clientes: ${this.emailPerson} 💳 😊👌 ➡️`,
+        text: `¡Hola! te entrego DOMICILIACION DE CLIENTES: ${this.numNameClient} 💳 😊👌 ➡️`,
         attachments: attachmentsArray,
         variables: [
           {
-            entidad: this.entity,
+            entidad: this.entity, 
             telPerson: this.telPerson,
             emailPerson: this.emailPerson,
             numNameClient: this.numNameClient,

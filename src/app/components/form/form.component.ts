@@ -208,7 +208,7 @@ export class FormComponent {
       this.generatePDF();
 
       // Enviar la petición al servidor 
-
+      this.router.navigate(['/load']);
       //https://email-own.vercel.app/send-email
       axios.post('https://emailown-production.up.railway.app/send-email-domic', body)
         .then(response => {

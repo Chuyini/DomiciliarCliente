@@ -286,7 +286,7 @@ export class FormComponent {
     }
 
     try {
-      const email = 'jmlr231201@gmail.com';
+      const email = 'pagos@elpoderdeinternet.mx';
       console.log("Correo seleccionado: ", email);
 
       if (email) {

@@ -27,7 +27,7 @@
 
         <div>
           <label for="numNomC">Nombre de cliente, con ID <span>*</span></label>
-          <input type="text" id="numNomC" name="numNomC" [(ngModel)]="numNameClient"
+          <input type="text" id="numNomC" name="numNomC" [(ngModel)]="numNameClient" maxlength="50"
             placeholder="ID de cliente con nombre  ejemplo: 1503 Roberto Saldaña" />
         </div>
 
@@ -46,39 +46,40 @@
 
         <div>
           <label for="nameTi">Titular de la cuenta</label>
-          <input type="text" id="nameTi" name="nameTi" [(ngModel)]="holder" maxlength="50" />
+          <input type="text" id="nameTi" name="nameTi" [(ngModel)]="holder" maxlength="60" />
         </div>
 
         <div>
           <label for="zona">Número de tarjeta (16 dígitos)<span>*</span></label>
-          <input maxlength="50" type="text" id="zona" name="zone" [(ngModel)]="numAccount" />
+          <input maxlength="19" type="text" id="zona" name="zone" [(ngModel)]="numAccount" />
         </div>
 
         <div>
           <label for="telefono">Celular</label>
-          <input type="tel" id="telefono" name="telPerson" [(ngModel)]="telPerson" placeholder="Ejemplo: 4443698521" />
+          <input type="tel" id="telefono" name="telPerson" maxlength="30" [(ngModel)]="telPerson" placeholder="Ejemplo: 4443698521" />
         </div>
 
         <div>
           <label for="dueDate">Fecha de vencimiento tarjeta (MM/YY)<span>*</span></label>
-          <input type="text" id="dueDate" name="dueDate" [(ngModel)]="dueDate" placeholder="MM/YY"
+          <input type="text" id="dueDate" name="dueDate" [(ngModel)]="dueDate" placeholder="MM/YY" maxlength="5"
+            oninput="this.value = this.value.replace(/[^0-9\/]/g, '').replace(/(\..*)\./g, '$1'); if (this.value.length > 5) this.value = this.value.slice(0, 5);"
             pattern="^(0[1-9]|1[0-2])\\/\\d{2}$" />
           <small style="font-style: italic; color: #666;">Ejemplo: 02/24</small>
         </div>
 
         <div>
           <label for="correo">Correo Electrónico</label>
-          <input type="email" id="correo" name="emailPerson" [(ngModel)]="emailPerson" />
+          <input type="email" id="correo" maxlength="20" name="emailPerson" [(ngModel)]="emailPerson" />
         </div>
 
         <div>
           <label for="address">Domicilio registrado en la tarjeta</label>
-          <input type="text" id="address" name="address" [(ngModel)]="address" />
+          <input type="text" id="address" maxlength="80" name="address" [(ngModel)]="address" />
         </div>
 
         <div>
           <label for="cantT">Cantidad total<span>*</span></label>
-          <input type="text" id="cantT" name="cantT" [(ngModel)]="cantT" />
+          <input type="text" id="cantT" maxlength="10" name="cantT" [(ngModel)]="cantT" />
         </div>
 
         <div>
@@ -118,7 +119,7 @@
         <p><i>Solo Formato .ZIP</i></p>
         <label for="zipInput" class="file-label">Subir Archivo Comprimido</label>
         <input type="file" accept=".zip" id="zipInput" class="file-input"
-          (change)="onFileSelected($event, 'zipFile')" />
+          (change)="onFileSelected($event, 'fileZip')" />
         <span class="file-name">{{ zipFileName || 'Ningún archivo seleccionado' }}</span>
       </div>
     </fieldset>

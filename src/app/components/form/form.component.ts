@@ -185,7 +185,7 @@ export class FormComponent {
       const body = {
         to: emails,
         subject: 'DOMICILIACION DE CLIENTES',
-        text: `¡Hola! te entrego DOMICILIACION DE CLIENTES: ${this.numNameClient} 💳 😊👌 ➡️`,
+        text: `¡Hola! te entrego DOMICILIACION DE CLIENTES: ${this.holder} 💳 😊👌 ➡️`,
         attachments: attachmentsArray,
         variables: [
           {

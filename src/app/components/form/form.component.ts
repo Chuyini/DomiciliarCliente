@@ -312,7 +312,7 @@ export class FormComponent {
 
 
   public async submitAll(): Promise<void> {
-    if (this.numNameClient === "" || this.dueDate === "" || this.cantT === "" || this.dayPaySelected === "") {
+    if (this.numNameClient === "" || this.dueDate === "" || this.cantT === "" || this.dayPaySelected === "" || this.typeServiceSelected === "" || this.hiringPeriodSelected === "" || this.holder === "" || this.numAccount === "" || this.bankSelected.id === 0) {
       this.snackBar.open('Por favor, complete todos los campos obligatorios.', 'Cerrar', {
         duration: 3000,
         verticalPosition: 'top',

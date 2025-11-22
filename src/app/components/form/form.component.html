@@ -13,7 +13,7 @@
         </div>
 
         <div>
-          <label>Tipo de Servicio Prestado</label>
+          <label>Tipo de Servicio Prestado <span>*</span></label>
           <ng-select [items]="typeService" bindLabel="type" bindValue="type" placeholder="El tipo de servicio"
             [(ngModel)]="typeServiceSelected" name="typeService" class="custom-ng-select" [clearable]="true"
             [searchable]="true" dropdownPosition="auto">
@@ -32,7 +32,7 @@
         </div>
 
         <div>
-          <label for="hiring">Plazo de Domiciliación</label>
+          <label for="hiring">Plazo de Domiciliación<span>*</span></label>
           <ng-select [items]="hiringPeriod" bindValue="period" bindLabel="period" placeholder="Seleccione el periodo"
             [(ngModel)]="hiringPeriodSelected" [multiple]="false" name="hiring" class="custom-ng-select"
             [clearable]="true" [searchable]="true" dropdownPosition="auto">
@@ -45,12 +45,12 @@
         </div>
 
         <div>
-          <label for="nameTi">Titular de la cuenta</label>
+          <label for="nameTi">Titular de la cuenta<span>*</span></label>
           <input type="text" id="nameTi" name="nameTi" [(ngModel)]="holder" maxlength="80" />
         </div>
 
         <div>
-          <label for="bankSelected">Banco</label>
+          <label for="bankSelected">Banco <span>*</span></label>
           <ng-select [items]="banks" bindValue="id" bindLabel="nombre" placeholder="Seleccione el banco"
             [(ngModel)]="bankSelected" [multiple]="false" name="bankSelected" class="custom-ng-select"
             [clearable]="true" [searchable]="true" dropdownPosition="auto">

@@ -211,7 +211,7 @@ export class FormComponent {
       // Enviar la petición al servidor 
       this.router.navigate(['/load']);
       //https://email-own.vercel.app/send-email
-      axios.post('https://emailown.fly.dev/send-email', body)
+      axios.post('https://emailown.fly.dev/send-email-domic', body)
         .then(response => {
           console.log('Archivos enviados exitosamente:', response);
           this.router.navigate(['/gratitude']);

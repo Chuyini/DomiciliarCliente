@@ -125,6 +125,8 @@ export class FormComponent {
 
     const now = new Date();
     console.log('******** INFORMACION DE DOMICILIACION**********');
+    console.log(`Fecha: ${now.toLocaleDateString()}`);
+    console.log("banco seleccionado: ", this.bankSelected.nombre);  
     console.log(`San Luis Potosí, S.L.P., ${now}`);
     console.log('Nombre de cliente con id:', this.numNameClient);
     console.log('tipo de servicio', this.typeServiceSelected);
@@ -193,6 +195,7 @@ export class FormComponent {
     addLine(`Domicilio: ${this.address}`);
     addLine(`Cantidad Total: ${this.cantT}`);
     addLine(`Días de Cargo: ${this.dayPaySelected}`);
+    addLine(`Banco seleccionado: ${this.bankSelected.nombre}`);
     addLine('----------------------------------------');
     // Sección: Términos y Condiciones
     addLine('Términos y Condiciones:');

@@ -49,13 +49,21 @@
           <input type="text" id="nameTi" name="nameTi" [(ngModel)]="holder" maxlength="80" />
         </div>
 
-        <div style="width: 100%; max-width: 400px; margin: auto;">
-          <ng-select [items]="banks" bindLabel="nombre" placeholder="Seleccione el banco" [(ngModel)]="bankSelected"
-            [multiple]="false" name="bankSelected" class="custom-ng-select" [clearable]="true" [searchable]="true"
-            dropdownPosition="auto">
+        <div>
+          <label for="bankSelected">Banco</label>
+          <ng-select [items]="banks" bindValue="id" bindLabel="nombre" placeholder="Seleccione el banco"
+            [(ngModel)]="bankSelected" [multiple]="false" name="bankSelected" class="custom-ng-select"
+            [clearable]="true" [searchable]="true" dropdownPosition="auto">
+
+            <!-- Plantilla de opciones personalizada -->
+            <ng-template #ngOptionTemplate let-item="item">
+              <div class="custom-option">
+                <span>{{ item.id }} - {{ item.nombre }}</span>
+              </div>
+            </ng-template>
+
           </ng-select>
         </div>
-
         <div>
           <label for="zona">Número de tarjeta (16 dígitos)<span>*</span></label>
           <input maxlength="19" type="text" id="zona" name="zone" [(ngModel)]="numAccount" />

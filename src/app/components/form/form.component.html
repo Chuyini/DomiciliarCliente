@@ -56,7 +56,8 @@
 
         <div>
           <label for="telefono">Celular</label>
-          <input type="tel" id="telefono" name="telPerson" maxlength="30" [(ngModel)]="telPerson" placeholder="Ejemplo: 4443698521" />
+          <input type="tel" id="telefono" name="telPerson" maxlength="30" [(ngModel)]="telPerson"
+            placeholder="Ejemplo: 4443698521" />
         </div>
 
         <div>
@@ -78,10 +79,10 @@
         </div>
 
         <div>
-          <label for="cantT">Cantidad NETA sin IVA<span>*</span></label>
+          <label for="cantT">Total del servicio (Pesos)<span>*</span></label>
           <input type="number" id="cantT" maxlength="10" name="cantT" [(ngModel)]="cantT" />
-          <small>Cantidad total con IVA: {{cantT*1.16}}</small>
-        </div>
+          <small>Este monto ya incluye IVA</small>
+        </div>  
 
         <div>
           <label for="hiring">Días de Cargo <span>*</span></label>
@@ -127,10 +128,11 @@
 
     <div class="terms" style="margin-left: 35%;">
 
-      <label class="checkbox-label" >
+      <label class="checkbox-label">
         <input type="checkbox" [(ngModel)]="checked" name="terms"> Acepto el Aviso de Privacidad
       </label>
-      <a style="margin-left: 10%; ;" href="http://elpoderdeinternet.mx/privacidad.pdf" target="_blank" class="link">Ver Aviso de Privacidad</a>
+      <a style="margin-left: 10%; ;" href="http://elpoderdeinternet.mx/privacidad.pdf" target="_blank" class="link">Ver
+        Aviso de Privacidad</a>
 
     </div>
 

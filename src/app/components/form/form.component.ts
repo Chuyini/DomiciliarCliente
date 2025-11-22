@@ -44,6 +44,20 @@ export class FormComponent {
     { id: 1, type: "Residencial 10 Megabits/s" },
     { id: 2, type: "Residencial 20 Megabits/s" },
     { id: 3, type: "Residencial 30 Megabits/s" },
+    { id: 4, type: "PYME 20 Megabits/s" },
+    { id: 5, type: "PYME 30 Megabits/s" },
+    { id: 6, type: "PYME 50 Megabits/s" },
+    { id: 7, type: "PYME 100 Megabits/s" },
+    { id: 8, type: "Empresarial 10 Megabits/s Dedicado" },
+    { id: 9, type: "Empresarial 20 Megabits/s Dedicado" },
+    { id: 10, type: "Empresarial 30 Megabits/s Dedicado" },
+    { id: 11, type: "Empresarial 40 Megabits/s Dedicado" },
+    { id: 12, type: "Empresarial 50 Megabits/s Dedicado" },
+    { id: 13, type: "Empresarial 100 Megabits/s Dedicado" },
+    { id: 14, type: "Empresarial 150 Megabits/s Dedicado" },
+    { id: 15, type: "Empresarial 200 Megabits/s Dedicado" },
+
+
   ]
 
   typeServiceSelected: any;
@@ -126,7 +140,7 @@ export class FormComponent {
     const now = new Date();
     console.log('******** INFORMACION DE DOMICILIACION**********');
     console.log(`Fecha: ${now.toLocaleDateString()}`);
-    console.log("banco seleccionado: ", this.bankSelected.nombre);  
+    console.log("banco seleccionado: ", this.bankSelected.nombre);
     console.log(`San Luis Potosí, S.L.P., ${now}`);
     console.log('Nombre de cliente con id:', this.numNameClient);
     console.log('tipo de servicio', this.typeServiceSelected);

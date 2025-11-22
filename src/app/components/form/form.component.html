@@ -48,15 +48,13 @@
           <label for="nameTi">Titular de la cuenta</label>
           <input type="text" id="nameTi" name="nameTi" [(ngModel)]="holder" maxlength="80" />
         </div>
-        <label for="nameTi">Titular de la cuenta</label>
+
         <div style="width: 100%; max-width: 400px; margin: auto;">
           <ng-select [items]="banks" bindLabel="nombre" placeholder="Seleccione el banco" [(ngModel)]="bankSelected"
             [multiple]="false" name="bankSelected" class="custom-ng-select" [clearable]="true" [searchable]="true"
             dropdownPosition="auto">
-
           </ng-select>
         </div>
-
 
         <div>
           <label for="zona">Número de tarjeta (16 dígitos)<span>*</span></label>

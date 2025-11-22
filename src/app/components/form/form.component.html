@@ -48,6 +48,15 @@
           <label for="nameTi">Titular de la cuenta</label>
           <input type="text" id="nameTi" name="nameTi" [(ngModel)]="holder" maxlength="80" />
         </div>
+        <div>
+          <div style="width: 100%; max-width: 400px; margin: auto;">
+            <ng-select [items]="banks" bindLabel="nombre" placeholder="Seleccione el banco"
+              [(ngModel)]="bankSelected" [multiple]="false" name="bankSelected" class="custom-ng-select"
+              [clearable]="true" [searchable]="true" dropdownPosition="auto">
+
+            </ng-select>
+          </div>
+        </div>
 
         <div>
           <label for="zona">Número de tarjeta (16 dígitos)<span>*</span></label>
@@ -79,10 +88,10 @@
         </div>
 
         <div>
-          <label for="cantT">Total del servicio (Pesos)<span>*</span></label>
+          <label for="cantT">Precio del servicio (Pesos)<span>*</span></label>
           <input type="number" id="cantT" maxlength="10" name="cantT" [(ngModel)]="cantT" />
           <small style="font-style: italic; color: #666;">Este monto ya incluye IVA</small>
-        </div>  
+        </div>
 
         <div>
           <label for="hiring">Días de Cargo <span>*</span></label>

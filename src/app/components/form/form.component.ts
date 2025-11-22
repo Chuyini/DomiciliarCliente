@@ -69,241 +69,241 @@ export class FormComponent {
   cantT: any;
   dayPaySelected: any;
 
-
+ 
   
 
   public printAllData(): void {
 
-    const now = new Date();
-    console.log('******** INFORMACION DE DOMICILIACION**********');
-    console.log(`San Luis Potosí, S.L.P., ${now}`);
-    console.log('Nombre de cliente con id:', this.numNameClient);
-    console.log('tipo de servicio', this.typeServiceSelected);
-    console.log("Plazo de contratacion; ", this.hiringPeriodSelected);
-    console.log("Titular de la cuenta: ", this.holder);
-    console.log("No. de cuenta: ", this.numAccount);
-    console.log('celular:', this.telPerson);
-    console.log("Fecha de vencimiento", this.dueDate);
-    console.log('Domicilio:', this.address);
-    console.log('Email: ', this.emailPerson);
-    console.log('cantidad total: ', this.cantT);
-    console.log('Dias de cargo:', this.dayPaySelected);
+  const now = new Date();
+  console.log('******** INFORMACION DE DOMICILIACION**********');
+  console.log(`San Luis Potosí, S.L.P., ${now}`);
+  console.log('Nombre de cliente con id:', this.numNameClient);
+  console.log('tipo de servicio', this.typeServiceSelected);
+  console.log("Plazo de contratacion; ", this.hiringPeriodSelected);
+  console.log("Titular de la cuenta: ", this.holder);
+  console.log("No. de cuenta: ", this.numAccount);
+  console.log('celular:', this.telPerson);
+  console.log("Fecha de vencimiento", this.dueDate);
+  console.log('Domicilio:', this.address);
+  console.log('Email: ', this.emailPerson);
+  console.log('cantidad total: ', this.cantT);
+  console.log('Dias de cargo:', this.dayPaySelected);
 
 
 
+}
+
+
+
+
+
+
+
+
+onFileSelected(event: Event, fileType: string): void {
+  const input = event.target as HTMLInputElement;
+  if(input.files && input.files.length > 0) {
+  if (fileType === 'fileZip') {
+    console.log('Archivo seleccionado:', input.files[0].name);
+    this.zipFileName = input.files[0].name;
+    this.fileZip = input.files[0];
+  }
+} else {
+  console.log('Ningún archivo seleccionado');
+}
   }
 
+generatePDF() {
+  const doc = new jsPDF();
+  let y = 10; // posición vertical inicial
 
+  const addLine = (text: string, space = 10) => {
+    doc.text(text, 10, y);
+    y += space;
+  };
 
+  // Sección: Encabezado
+  doc.setFontSize(16);
+  doc.setFont('helvetica', 'bold');
+  addLine('ALTA DE CLIENTES');
+  doc.setFontSize(12);
+  doc.setFont('helvetica', 'normal');
+  addLine(`Fecha: ${new Date().toLocaleDateString()}`);
+  addLine(`Hora: ${new Date().toLocaleTimeString()}`);
+  addLine(`Entidad: ${this.entity}`);
+  addLine(`Teléfono: ${this.telPerson}`);
+  addLine(`Email: ${this.emailPerson}`);
+  addLine('----------------------------------------');
+  // Sección: Datos del Cliente
+  addLine(`Nombre del Cliente: ${this.numNameClient}`);
+  addLine(`Tipo de Servicio: ${this.typeServiceSelected}`);
+  addLine(`Plazo de Contratación: ${this.hiringPeriodSelected}`);
+  addLine(`Titular de la Cuenta: ${this.holder}`);
+  addLine(`Número de Cuenta: ${this.numAccount}`);
+  addLine(`Fecha de Vencimiento: ${this.dueDate}`);
+  addLine(`Domicilio: ${this.address}`);
+  addLine(`Cantidad Total: ${this.cantT}`);
+  addLine(`Días de Cargo: ${this.dayPaySelected}`);
+  addLine('----------------------------------------');
+  // Sección: Términos y Condiciones
+  addLine('Términos y Condiciones:');
+  addLine('1. El cliente acepta los términos y condiciones del servicio.');
 
-
-
-
-
-  onFileSelected(event: Event, fileType: string): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      if (fileType === 'fileZip') {
-        console.log('Archivo seleccionado:', input.files[0].name);
-        this.zipFileName = input.files[0].name;
-        this.fileZip = input.files[0];
-      }
-    } else {
-      console.log('Ningún archivo seleccionado');
-    }
-  }
-
-  generatePDF() {
-    const doc = new jsPDF();
-    let y = 10; // posición vertical inicial
-
-    const addLine = (text: string, space = 10) => {
-      doc.text(text, 10, y);
-      y += space;
-    };
-
-    // Sección: Encabezado
-    doc.setFontSize(16);
-    doc.setFont('helvetica', 'bold');
-    addLine('ALTA DE CLIENTES');
-    doc.setFontSize(12);
-    doc.setFont('helvetica', 'normal');
-    addLine(`Fecha: ${new Date().toLocaleDateString()}`);
-    addLine(`Hora: ${new Date().toLocaleTimeString()}`);
-    addLine(`Entidad: ${this.entity}`);
-    addLine(`Teléfono: ${this.telPerson}`);
-    addLine(`Email: ${this.emailPerson}`);
-    addLine('----------------------------------------');
-    // Sección: Datos del Cliente
-    addLine(`Nombre del Cliente: ${this.numNameClient}`);
-    addLine(`Tipo de Servicio: ${this.typeServiceSelected}`);
-    addLine(`Plazo de Contratación: ${this.hiringPeriodSelected}`);
-    addLine(`Titular de la Cuenta: ${this.holder}`);
-    addLine(`Número de Cuenta: ${this.numAccount}`);
-    addLine(`Fecha de Vencimiento: ${this.dueDate}`);
-    addLine(`Domicilio: ${this.address}`);
-    addLine(`Cantidad Total: ${this.cantT}`);
-    addLine(`Días de Cargo: ${this.dayPaySelected}`);
-    addLine('----------------------------------------');
-    // Sección: Términos y Condiciones
-    addLine('Términos y Condiciones:');
-    addLine('1. El cliente acepta los términos y condiciones del servicio.');
-
-    doc.save('Domiciliacion_Pdnt.pdf');
-  }
+  doc.save('Domiciliacion_Pdnt.pdf');
+}
 
 
 
   public useNodeMailer(emails: any) {
-    console.log("Desde la funcion useNodeMailer: ", emails);
+  console.log("Desde la funcion useNodeMailer: ", emails);
 
 
 
 
-    let base64Zip: string | null = null;
+  let base64Zip: string | null = null;
 
-    // Crearemos dos FileReader, pero solo si existen los archivos
-
-
-    let readerZip: FileReader | null = null;
-
-    // Función para INTENTAR enviar el correo cuando tengamos la info necesaria
-    const trySendEmail = () => {
-      // Construir el array de attachments
-      const attachmentsArray = [];
+  // Crearemos dos FileReader, pero solo si existen los archivos
 
 
-      if (base64Zip) {
-        attachmentsArray.push({
-          filename: 'DocumentosComprimidos.zip',
-          content: base64Zip,
-          encoding: 'base64'
-        });
-      }
+  let readerZip: FileReader | null = null;
 
-      // Construir el body con ambos adjuntos
-      const body = {
-        to: emails,
-        subject: 'DOMICILIACION DE CLIENTES',
-        text: `¡Hola! te entrego DOMICILIACION DE CLIENTES: ${this.holder} 💳 😊👌 ➡️`,
-        attachments: attachmentsArray,
-        variables: [
-          {
-            entidad: this.entity, 
-            telPerson: this.telPerson,
-            emailPerson: this.emailPerson,
-            numNameClient: this.numNameClient,
-            typeServiceSelected: this.typeServiceSelected,
-            hiringPeriodSelected: this.hiringPeriodSelected,
-            holder: this.holder,
-            numAccount: this.numAccount,
-            dueDate: this.dueDate,
-            address: this.address,
-            cantT: this.cantT,
-            dayPaySelected: this.dayPaySelected
+  // Función para INTENTAR enviar el correo cuando tengamos la info necesaria
+  const trySendEmail = () => {
+    // Construir el array de attachments
+    const attachmentsArray = [];
 
-          }
-        ]
-      };
 
-      this.generatePDF();
+    if (base64Zip) {
+      attachmentsArray.push({
+        filename: 'DocumentosComprimidos.zip',
+        content: base64Zip,
+        encoding: 'base64'
+      });
+    }
 
-      // Enviar la petición al servidor 
-      this.router.navigate(['/load']);
-      //https://email-own.vercel.app/send-email
-      axios.post('https://emailown.fly.dev/send-email-domic', body)
-        .then(response => {
-          console.log('Archivos enviados exitosamente:', response);
-          this.router.navigate(['/gratitude']);
-        })
-        .catch(error => {
-          console.error('Error al enviar los archivos', error);
-        });
+    // Construir el body con ambos adjuntos
+    const body = {
+      to: emails,
+      subject: 'DOMICILIACION DE CLIENTES',
+      text: `¡Hola! te entrego DOMICILIACION DE CLIENTES: ${this.holder} 💳 😊👌 ➡️`,
+      attachments: attachmentsArray,
+      variables: [
+        {
+          entidad: this.entity,
+          telPerson: this.telPerson,
+          emailPerson: this.emailPerson,
+          numNameClient: this.numNameClient,
+          typeServiceSelected: this.typeServiceSelected,
+          hiringPeriodSelected: this.hiringPeriodSelected,
+          holder: this.holder,
+          numAccount: this.numAccount,
+          dueDate: this.dueDate,
+          address: this.address,
+          cantT: this.cantT,
+          dayPaySelected: this.dayPaySelected
+
+        }
+      ]
     };
 
+    this.generatePDF();
 
-    // Lógica para leer el ZIP (si existe)
-    if (this.fileZip) {
-      readerZip = new FileReader();
-      readerZip.onload = () => {
-        base64Zip = (readerZip!.result as string).split(',')[1];
-        // Verificamos si no hay PDF o si PDF ya está listo
+    // Enviar la petición al servidor 
+    this.router.navigate(['/load']);
+    //https://email-own.vercel.app/send-email
+    axios.post('https://emailown.fly.dev/send-email-domic', body)
+      .then(response => {
+        console.log('Archivos enviados exitosamente:', response);
+        this.router.navigate(['/gratitude']);
+      })
+      .catch(error => {
+        console.error('Error al enviar los archivos', error);
+      });
+  };
 
-        trySendEmail();
 
-      };
-      readerZip.readAsDataURL(this.fileZip);
-    }
+  // Lógica para leer el ZIP (si existe)
+  if (this.fileZip) {
+    readerZip = new FileReader();
+    readerZip.onload = () => {
+      base64Zip = (readerZip!.result as string).split(',')[1];
+      // Verificamos si no hay PDF o si PDF ya está listo
 
-    // Si no hay PDF ni ZIP, enviamos sin adjuntos
-    if (!this.fileZip) {
       trySendEmail();
-    }
+
+    };
+    readerZip.readAsDataURL(this.fileZip);
   }
 
+  // Si no hay PDF ni ZIP, enviamos sin adjuntos
+  if (!this.fileZip) {
+    trySendEmail();
+  }
+}
 
 
 
 
-  public async submitAll(): Promise<void> {
-    if (this.numNameClient === "" || this.dueDate === "" || this.cantT === "" || this.dayPaySelected === "") {
-      this.snackBar.open('Por favor, complete todos los campos obligatorios.', 'Cerrar', {
-        duration: 3000,
-        verticalPosition: 'top',
-        horizontalPosition: 'center'
-      });
-      return;
-    }
-    if (this.checked === false) {
-      this.snackBar.open('Por favor, acepte los términos y condiciones.', 'Cerrar', {
-        duration: 3000,
-        verticalPosition: 'top',
-        horizontalPosition: 'center'
-      });
-      return;
 
-    }
+  public async submitAll(): Promise < void> {
+  if(this.numNameClient === "" || this.dueDate === "" || this.cantT === "" || this.dayPaySelected === "") {
+  this.snackBar.open('Por favor, complete todos los campos obligatorios.', 'Cerrar', {
+    duration: 3000,
+    verticalPosition: 'top',
+    horizontalPosition: 'center'
+  });
+  return;
+}
+if (this.checked === false) {
+  this.snackBar.open('Por favor, acepte los términos y condiciones.', 'Cerrar', {
+    duration: 3000,
+    verticalPosition: 'top',
+    horizontalPosition: 'center'
+  });
+  return;
 
-    if ((this.fileZip?.size ?? 0) > 10 * 1048576) {
-      this.snackBar.open('El archivo debe ser un PDF y el ZIP debe tener un tamaño máximo de 10MB.', 'Cerrar', {
-        duration: 3000,
-        verticalPosition: 'bottom',
-        horizontalPosition: 'center'
-      });
-      return;
-    }
+}
 
-    if (this.fileZip) {
-      const zipOk = this.fileZip.name.toLowerCase().endsWith('.zip');
-      if (!zipOk) {
-        this.snackBar.open('El archivo ZIP debe tener extensión .zip.', 'Cerrar', {
-          duration: 3000,
-          verticalPosition: 'bottom',
-          horizontalPosition: 'center'
-        });
-        return;
-      }
-    }
+if ((this.fileZip?.size ?? 0) > 10 * 1048576) {
+  this.snackBar.open('El archivo debe ser un PDF y el ZIP debe tener un tamaño máximo de 10MB.', 'Cerrar', {
+    duration: 3000,
+    verticalPosition: 'bottom',
+    horizontalPosition: 'center'
+  });
+  return;
+}
 
-    try {
-      const email = 'pagos@elpoderdeinternet.mx';
-      console.log("Correo seleccionado: ", email);
+if (this.fileZip) {
+  const zipOk = this.fileZip.name.toLowerCase().endsWith('.zip');
+  if (!zipOk) {
+    this.snackBar.open('El archivo ZIP debe tener extensión .zip.', 'Cerrar', {
+      duration: 3000,
+      verticalPosition: 'bottom',
+      horizontalPosition: 'center'
+    });
+    return;
+  }
+}
 
-      if (email) {
-        await this.useNodeMailer(email);
-        console.log("Respuesta del servidor: ");
+try {
+  const email = 'pagos@elpoderdeinternet.mx';
+  console.log("Correo seleccionado: ", email);
+
+  if (email) {
+    await this.useNodeMailer(email);
+    console.log("Respuesta del servidor: ");
 
 
-      }
-    } catch (error) {
-      console.log("Ocurrió el siguiente error: ", error);
-      this.snackBar.open('Ocurrió un error al enviar el correo. Por favor, intente nuevamente.', 'Cerrar', {
-        duration: 3000,
-        verticalPosition: 'top',
-        horizontalPosition: 'center'
-      });
-    }
+  }
+} catch (error) {
+  console.log("Ocurrió el siguiente error: ", error);
+  this.snackBar.open('Ocurrió un error al enviar el correo. Por favor, intente nuevamente.', 'Cerrar', {
+    duration: 3000,
+    verticalPosition: 'top',
+    horizontalPosition: 'center'
+  });
+}
 
-    console.log("No termina");
+console.log("No termina");
   }
 }

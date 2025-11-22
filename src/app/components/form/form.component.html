@@ -79,7 +79,8 @@
 
         <div>
           <label for="cantT">Cantidad total<span>*</span></label>
-          <input type="text" id="cantT" maxlength="10" name="cantT" [(ngModel)]="cantT" />
+          <input type="number" id="cantT" maxlength="10" name="cantT" [(ngModel)]="cantT" />
+          <small>Cantidad total con IVA: {{cantT*1.16}}</small>
         </div>
 
         <div>
@@ -115,7 +116,7 @@
       <div class="file-upload">
 
         <p><i>Que no pase de 10 MegaBytes</i></p>
-        <p><i>Comprima los docmentos y subalos</i></p>
+        <p><i>Comprima los documentos y subalos</i></p>
         <p><i>Solo Formato .ZIP</i></p>
         <label for="zipInput" class="file-label">Subir Archivo Comprimido</label>
         <input type="file" accept=".zip" id="zipInput" class="file-input"

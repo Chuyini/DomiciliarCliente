@@ -51,7 +51,7 @@
 
         <div>
           <label for="bankSelected">Banco <span>*</span></label>
-          <ng-select [items]="banks" bindValue="id" bindLabel="nombre" placeholder="Seleccione el banco"
+          <ng-select [items]="banks" bindLabel="nombre" placeholder="Seleccione el banco"
             [(ngModel)]="bankSelected" [multiple]="false" name="bankSelected" class="custom-ng-select"
             [clearable]="true" [searchable]="true" dropdownPosition="auto">
 
@@ -103,15 +103,7 @@
           <label for="hiring">Días de Cargo <span>*</span></label>
           <input type="number" min="1" max="25" id="daysPay" name="daysPay" [(ngModel)]="dayPayOpen"
             oninput="if (this.value !== '' && this.value < 1) this.value = 1; if (this.value !== '' && this.value > 25) this.value = 25; if (this.value.length > 2) this.value = this.value.slice(0, 2);" />
-          <!-- <ng-select [items]="daysPay" bindLabel="day" bindValue="day" placeholder="Seleccione el día   
-          " [(ngModel)]="dayPaySelected" [multiple]="false" name="daysPay" class="custom-ng-select" [clearable]="true"
-            [searchable]="true" dropdownPosition="auto">
-            <ng-template #ngOptionTemplate let-item="item">
-              <div class="custom-option">
-                <span> {{ item.id }} - {{ item.day }}</span>
-              </div>
-            </ng-template>
-          </ng-select> -->
+          
           <small style="font-style: italic; color: #666;">
             Los días de cargo son los días del mes que se le hará el cargo a su tarjeta mes con mes del 1 al 25.
           </small>

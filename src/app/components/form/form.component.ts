@@ -152,7 +152,7 @@ export class FormComponent {
     console.log('Domicilio:', this.address);
     console.log('Email: ', this.emailPerson);
     console.log('cantidad total: ', this.cantT);
-    console.log('Dias de cargo:', this.dayPaySelected);
+    console.log('Dias de cargo:', this.dayPayOpen);
 
 
 
@@ -208,7 +208,7 @@ export class FormComponent {
     addLine(`Fecha de Vencimiento: ${this.dueDate}`);
     addLine(`Domicilio: ${this.address}`);
     addLine(`Cantidad Total: ${this.cantT}`);
-    addLine(`Días de Cargo: ${this.dayPaySelected}`);
+    addLine(`Días de Cargo: ${this.dayPayOpen}`);
     addLine(`Banco seleccionado: ${this.bankSelected.nombre}`);
     addLine('----------------------------------------');
     // Sección: Términos y Condiciones

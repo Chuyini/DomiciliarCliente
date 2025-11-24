@@ -56,6 +56,10 @@ export class FormComponent {
     { id: 13, type: "Empresarial 100 Megabits/s Dedicado" },
     { id: 14, type: "Empresarial 150 Megabits/s Dedicado" },
     { id: 15, type: "Empresarial 200 Megabits/s Dedicado" },
+    { id: 16, type: "PTP 50 Megabits/s" },
+    { id: 17, type: "PTP 100 Megabits/s" },
+    { id: 18, type: "Direccionamiento IPv4/29" },
+
 
 
   ]
